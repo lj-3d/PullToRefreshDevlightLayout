@@ -307,12 +307,12 @@ public class PullToRefreshLayout extends FrameLayout {
 
     private void calculateOffsetAndDragView(final float shiftOffset) {
         final float delta = mMaxYValue - mIncreasedTensionYValue;
-        final float offset = 1f - ((delta - shiftOffset) / (mThreshold * mDragCoefficient));
-        dragView(offset, shiftOffset);
+        final float fraction = 1f - ((delta - shiftOffset) / (mThreshold * mDragCoefficient));
+        dragView(fraction, shiftOffset);
     }
 
-    private void dragView(final float offset, final float shiftOffset) {
-        final float dragOffset = mThreshold * offset;
+    private void dragView(final float fraction, final float shiftOffset) {
+        final float dragOffset = mThreshold * fraction;
         final float dragValue = mThreshold - dragOffset;
 
         if (dragValue > 0f) {
@@ -322,7 +322,7 @@ public class PullToRefreshLayout extends FrameLayout {
             } else if (mDragMode == DragMode.PARALLAX) {
                 final float parallaxOffset = (mThreshold * mParallaxCoefficient);
                 final float originParallaxShift = mThreshold - parallaxOffset;
-                mFirstChild.setTranslationY(-originParallaxShift * (1 - offset));
+                mFirstChild.setTranslationY(-originParallaxShift * (1 - fraction));
             }
         } else if (shiftOffset >= 0f) {
             final float tensionDelta = 1 - ((mMaxYValue - shiftOffset) / mIncreasedTensionYValue);
@@ -473,13 +473,13 @@ public class PullToRefreshLayout extends FrameLayout {
     }
 
     private void onBackTension(final ValueAnimator valueAnimator) {
-        final float delta = (float) valueAnimator.getAnimatedValue();
-        mSecondChild.setTranslationY(delta);
+        final float tensionValue = (float) valueAnimator.getAnimatedValue();
+        mSecondChild.setTranslationY(tensionValue);
         if (mDragMode == DragMode.DRAG && mTensionMode == TensionMode.TOP && mTension > 0) {
-            mFirstChild.setTranslationY(delta - mThreshold);
+            mFirstChild.setTranslationY(tensionValue - mThreshold);
         }
         if (mRefreshCallback != null) {
-            mRefreshCallback.onTensionUp(1 - ((delta - mTension) / mTension));
+            mRefreshCallback.onTensionUp(1 - ((tensionValue - mTension) / mTension));
         }
     }
 
@@ -531,6 +531,26 @@ public class PullToRefreshLayout extends FrameLayout {
         mTensionMode = tensionMode;
     }
 
+    private void calculateTotalHeight() {
+        mTotalHeight = mThreshold + mTension;
+    }
+
+    public void setFullBackDuration(final int fullBackDuration) {
+        this.mFullBackDuration = fullBackDuration;
+    }
+
+    public void setCancelBackDuration(final int cancelBackDuration) {
+        this.mCancelBackDuration = cancelBackDuration;
+    }
+
+    public void setTensionBackDuration(final int tensionBackDuration) {
+        this.mTensionBackDuration = tensionBackDuration;
+    }
+
+    public void setAutoRefreshDuration(final int autoRefreshDuration) {
+        this.mAutoRefreshDuration = autoRefreshDuration;
+    }
+
     public void setDragCoefficient(final float dragCoefficient) {
         mDragCoefficient = dragCoefficient < 1 ? 1 : dragCoefficient;
     }
@@ -569,26 +589,6 @@ public class PullToRefreshLayout extends FrameLayout {
                 break;
         }
         mFirstChild.requestLayout();
-    }
-
-    private void calculateTotalHeight() {
-        mTotalHeight = mThreshold + mTension;
-    }
-
-    public void setFullBackDuration(final int fullBackDuration) {
-        this.mFullBackDuration = fullBackDuration;
-    }
-
-    public void setCancelBackDuration(final int cancelBackDuration) {
-        this.mCancelBackDuration = cancelBackDuration;
-    }
-
-    public void setTensionBackDuration(final int tensionBackDuration) {
-        this.mTensionBackDuration = tensionBackDuration;
-    }
-
-    public void setAutoRefreshDuration(final int autoRefreshDuration) {
-        this.mAutoRefreshDuration = autoRefreshDuration;
     }
 
     public boolean isRefreshing() {
@@ -637,7 +637,6 @@ public class PullToRefreshLayout extends FrameLayout {
             }
         }
     }
-
 
     public void setRefreshCallback(final RefreshCallback refreshCallback) {
         mRefreshCallback = refreshCallback;
