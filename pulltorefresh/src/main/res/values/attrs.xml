@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="PullToRefreshLayout">
+        <attr name="ptr_fullBackDuration" format="integer"/>
+        <attr name="ptr_cancelBackDuration" format="integer"/>
+        <attr name="ptr_tensionBackDuration" format="integer"/>
+        <attr name="ptr_autoRefreshDuration" format="integer"/>
+        <attr name="ptr_threshold" format="dimension"/>
+        <attr name="ptr_tension" format="dimension"/>
+        <attr name="ptr_drag_coefficient" format="float"/>
+        <attr name="ptr_tension_coefficient" format="float"/>
+        <attr name="ptr_parallax_coefficient" format="float"/>
+        <attr name="ptr_drag_mode" format="enum">
+            <enum name="overlay" value="0"/>
+            <enum name="drag" value="1"/>
+            <enum name="parallax" value="2"/>
+        </attr>
+        <attr name="ptr_tension_mode" format="enum">
+            <enum name="top" value="0"/>
+            <enum name="bottom" value="1"/>
+        </attr>
+    </declare-styleable>
+</resources>

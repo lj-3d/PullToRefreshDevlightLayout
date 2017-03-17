@@ -1,0 +1,39 @@
+<resources>
+    <declare-styleable name="GearView">
+        <attr name="mainColor" format="color"/>
+        <attr name="innerColor" format="color"/>
+        <attr name="rotateAngle" format="float"/>
+        <attr name="mainDiameter" format="dimension"/>
+        <attr name="secondDiameter" format="dimension"/>
+        <attr name="innerDiameter" format="dimension"/>
+        <attr name="teethWidth" format="dimension"/>
+        <attr name="enableCutCenter" format="boolean"/>
+    </declare-styleable>
+
+    <declare-styleable name="CutOutLayout">
+        <attr name="cutLayoutColor" format="color"/>
+        <attr name="cutRadius" format="dimension"/>
+        <attr name="shadowWidth" format="dimension"/>
+        <attr name="shadowColor" format="color"/>
+    </declare-styleable>
+
+    <declare-styleable name="GearLoadingLayout">
+        <attr name="firstGearColor" format="color"/>
+        <attr name="secondGearColor" format="color"/>
+        <attr name="thirdGearColor" format="color"/>
+        <attr name="firstInnerGearColor" format="color"/>
+        <attr name="secondInnerGearColor" format="color"/>
+        <attr name="thirdInnerGearColor" format="color"/>
+        <attr name="gearLayoutCutColor" format="color"/>
+        <attr name="layoutBackground" format="color"/>
+        <attr name="gearLayoutCutRadius" format="dimension"/>
+        <attr name="gearLayoutCutAlpha" format="float"/>
+        <attr name="layoutAlpha" format="float"/>
+        <attr name="cutLayoutVisibility" format="boolean"/>
+        <attr name="firstGearCuttedCenter" format="boolean"/>
+        <attr name="secondGearCuttedCenter" format="boolean"/>
+        <attr name="thirdGearCuttedCenter" format="boolean"/>
+        <attr name="gearLayoutShadowWidth" format="dimension"/>
+        <attr name="gearLayoutShadowColor" format="color"/>
+    </declare-styleable>
+</resources>

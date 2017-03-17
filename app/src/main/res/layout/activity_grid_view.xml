@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <lj_3d.pulltorefresh.PullToRefreshLayout
+        style="@style/Devlight_pull_to_refresh_layout">
+
+        <lj_3d.gearloadinglayout.gearViews.ThreeGearsLayout
+            style="@style/Devlight_gears_layout"/>
+
+
+        <GridView
+            android:id="@+id/gv_pull_to_refresh"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:numColumns="3"
+            >
+
+        </GridView>
+    </lj_3d.pulltorefresh.PullToRefreshLayout>
+</LinearLayout>

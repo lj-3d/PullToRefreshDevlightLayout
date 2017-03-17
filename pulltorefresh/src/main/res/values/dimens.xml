@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="pull_to_refresh_threshold">120dp</dimen>
+    <dimen name="pull_to_refresh_tension">30dp</dimen>
+</resources>

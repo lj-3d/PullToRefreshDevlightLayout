@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:orientation="vertical">
+
+    <lj_3d.pulltorefresh.PullToRefreshLayout
+        style="@style/Devlight_pull_to_refresh_layout">
+
+        <lj_3d.gearloadinglayout.gearViews.ThreeGearsLayout
+            style="@style/Devlight_gears_layout"/>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <include layout="@layout/scroll_view_container"/>
+
+        </ScrollView>
+
+    </lj_3d.pulltorefresh.PullToRefreshLayout>
+</merge>

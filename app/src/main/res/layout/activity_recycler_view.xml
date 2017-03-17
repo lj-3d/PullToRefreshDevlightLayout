@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:orientation="vertical">
+
+
+    <lj_3d.pulltorefresh.PullToRefreshLayout
+        style="@style/Devlight_pull_to_refresh_layout">
+
+        <lj_3d.gearloadinglayout.gearViews.ThreeGearsLayout
+            style="@style/Devlight_gears_layout"/>
+
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_pull_to_refresh"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/main_color"
+            android:divider="@null"
+            android:dividerHeight="0dp"
+            tools:listitem="@layout/scrollable_item"/>
+    </lj_3d.pulltorefresh.PullToRefreshLayout>
+
+</LinearLayout>
