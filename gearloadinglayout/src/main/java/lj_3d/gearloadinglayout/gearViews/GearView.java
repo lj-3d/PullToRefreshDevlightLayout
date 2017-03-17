@@ -1,6 +1,5 @@
 package lj_3d.gearloadinglayout.gearViews;
 
-import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.res.TypedArray;

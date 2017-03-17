@@ -13,6 +13,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.view.animation.Interpolator;
+import android.view.animation.LinearInterpolator;
 import android.webkit.WebView;
 import android.widget.AbsListView;
 import android.widget.FrameLayout;
@@ -67,6 +69,9 @@ public class PullToRefreshLayout extends FrameLayout {
     private ValueAnimator mDragUpAnimator;
     private ValueAnimator mAutoRefreshAnimator;
     private ValueAnimator mDragTensionUpAnimator;
+
+    private Interpolator mDragInterpolator;
+    private Interpolator mTensionInterpolator;
 
     private RefreshCallback mRefreshCallback;
     private OnChildTouchListener mOnChildTouchListener;
@@ -356,6 +361,7 @@ public class PullToRefreshLayout extends FrameLayout {
         mDragUpAnimator = new ValueAnimator();
         mDragUpAnimator.setFloatValues(from, 0f);
         mDragUpAnimator.setDuration(getTag() != null ? mFullBackDuration : mCancelBackDuration);
+        mDragUpAnimator.setInterpolator(mDragInterpolator);
         mDragUpAnimator.addListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animator) {
@@ -396,6 +402,7 @@ public class PullToRefreshLayout extends FrameLayout {
         mDragTensionUpAnimator = new ValueAnimator();
         mDragTensionUpAnimator.setDuration(mTensionBackDuration);
         mDragTensionUpAnimator.setFloatValues(from, mThreshold);
+        mDragTensionUpAnimator.setInterpolator(mTensionInterpolator);
 
         setTag(mDragTensionUpAnimator);
         mDragTensionUpAnimator.addListener(new Animator.AnimatorListener() {
@@ -551,6 +558,14 @@ public class PullToRefreshLayout extends FrameLayout {
         this.mAutoRefreshDuration = autoRefreshDuration;
     }
 
+    public void setDragInterpolator(final Interpolator dragInterpolator) {
+        mDragInterpolator = dragInterpolator;
+    }
+
+    public void setTensionInterpolator(final Interpolator tensionInterpolator) {
+        mTensionInterpolator = tensionInterpolator;
+    }
+
     public void setDragCoefficient(final float dragCoefficient) {
         mDragCoefficient = dragCoefficient < 1 ? 1 : dragCoefficient;
     }
@@ -657,5 +672,4 @@ public class PullToRefreshLayout extends FrameLayout {
     public void setOnNestedScrollViewScrollListener(final OnNestedScrollViewScrollListener onNestedScrollViewScrollListener) {
         mOnNestedScrollViewScrollListener = onNestedScrollViewScrollListener;
     }
-
 }

@@ -1,6 +1,7 @@
 package lj_3d.pulltorefreshsample.utils;
 
 import android.os.Handler;
+import android.view.animation.OvershootInterpolator;
 
 import lj_3d.gearloadinglayout.gearViews.GearLoadingLayout;
 import lj_3d.pulltorefresh.PullToRefreshLayout;
@@ -14,7 +15,7 @@ public class PullToRefreshConfigurator {
 
     public static void setupPullToRefresh(final PullToRefreshLayout pullToRefreshLayout, final GearLoadingLayout gearLoadingLayout) {
         pullToRefreshLayout.setFullBackDuration(500);
-//        pullToRefreshLayout.setCancelBackDuration(1000);
+//        pullToRefreshLayout.setTensionInterpolator(new OvershootInterpolator());
         pullToRefreshLayout.setRefreshCallback(new RefreshCallback() {
             @Override
             public void onRefresh() {
@@ -67,12 +68,12 @@ public class PullToRefreshConfigurator {
             }
         });
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                pullToRefreshLayout.callAutoRefresh();
-            }
-        }, 1000);
+//        new Handler().postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                pullToRefreshLayout.callAutoRefresh();
+//            }
+//        }, 1000);
     }
 
 

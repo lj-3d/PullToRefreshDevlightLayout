@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:background="@color/prezi_gears_background"
+                android:orientation="vertical">
+
+    <lj_3d.gearloadinglayout.gearViews.GearView
+        android:id="@+id/gear_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        app:enableCutCenter="true"
+        app:innerDiameter="@dimen/three_gear_first_inner_diameter"
+        app:mainColor="@color/prezi_main_gear_color"
+        app:mainDiameter="60dp"
+        app:secondDiameter="50dp"
+        app:teethWidth="12dp"/>
+
+</RelativeLayout>

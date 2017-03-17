@@ -1,4 +1,7 @@
 <resources>
     <color name="white">#ffffff</color>
     <color name="main_color">#3D80B9</color>
+    <color name="prezi_gears_background">#162E64</color>
+    <color name="prezi_main_gear_color">#3F59D0</color>
+    <color name="prezi_others_gears_color">#27469D</color>
 </resources>
