@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="120dp"
                 android:background="@color/prezi_gears_background"
                 android:orientation="vertical">
 
@@ -14,9 +14,81 @@
         app:enableCutCenter="true"
         app:innerDiameter="@dimen/three_gear_first_inner_diameter"
         app:mainColor="@color/prezi_main_gear_color"
-        app:mainDiameter="100dp"
-        app:teethCount="4"
-        app:secondDiameter="50dp"
-        app:teethWidth="10dp"/>
+        app:mainDiameter="70dp"
+        app:teethCount="10"
+        app:secondDiameter="57dp"
+        app:teethWidth="13dp"/>
+
+    <lj_3d.gearloadinglayout.gearViews.GearView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:innerDiameter="@dimen/three_gear_first_inner_diameter"
+        app:mainColor="#4E78D7"
+        app:innerColor="#4E78D7"
+        app:mainDiameter="110dp"
+        app:teethCount="17"
+        app:secondDiameter="90dp"
+        app:teethWidth="9dp"
+        android:id="@+id/gearView2"
+        android:layout_marginRight="43dp"
+        android:layout_marginEnd="43dp"
+        android:layout_marginTop="40dp"
+        android:layout_alignTop="@+id/gear_view"
+        android:layout_alignRight="@+id/gear_view"
+        android:layout_alignEnd="@+id/gear_view"/>
+
+    <lj_3d.gearloadinglayout.gearViews.GearView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:innerDiameter="@dimen/three_gear_first_inner_diameter"
+        app:mainColor="#3A68C3"
+        app:innerColor="#3A68C3"
+        app:mainDiameter="130dp"
+        app:teethCount="17"
+        app:secondDiameter="105dp"
+        app:teethWidth="10dp"
+        android:id="@+id/gearView3"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginBottom="8dp"
+        android:layout_alignBottom="@+id/gear_view"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"/>
+
+    <lj_3d.gearloadinglayout.gearViews.GearView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:innerDiameter="@dimen/three_gear_first_inner_diameter"
+        app:mainColor="#4E78D7"
+        app:innerColor="#4E78D7"
+        app:mainDiameter="130dp"
+        app:teethCount="17"
+        app:secondDiameter="105dp"
+        app:teethWidth="10dp"
+        app:rotateAngle="2"
+        android:id="@+id/gearView4"
+        android:layout_marginStart="-38dp"
+        android:layout_marginLeft="-38dp"
+        android:layout_marginBottom="-28dp"
+        android:layout_above="@+id/gear_view"
+        android:layout_toRightOf="@+id/gear_view"
+        android:layout_toEndOf="@+id/gear_view"/>
+
+    <lj_3d.gearloadinglayout.gearViews.GearView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:innerDiameter="@dimen/three_gear_first_inner_diameter"
+        app:mainColor="#3A68C3"
+        app:innerColor="#3A68C3"
+        app:mainDiameter="145dp"
+        app:teethCount="17"
+        app:secondDiameter="120dp"
+        app:teethWidth="12dp"
+        app:rotateAngle="2"
+        android:layout_marginTop="-2dp"
+        android:layout_marginEnd="-45dp"
+        android:layout_marginRight="-45dp"
+        android:id="@+id/gearView5"
+        android:layout_alignParentRight="true"/>
 
 </RelativeLayout>

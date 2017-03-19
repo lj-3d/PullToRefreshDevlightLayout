@@ -92,7 +92,6 @@ public class GearView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        canvas.rotate(rotateOffset);
         canvas.drawBitmap(mainBitmap, 0, 0, null);
     }
 
@@ -231,7 +230,7 @@ public class GearView extends View {
         final Canvas mainCanvas = new Canvas(mainBitmap);
         drawTeeth();
 
-        for (float angle = 0; angle < 360f; angle = angle + offsetAngle) {
+        for (float angle = 0 + rotateOffset; angle < 360f + rotateOffset; angle = angle + offsetAngle) {
             matrix.setRotate(angle, mainDiameter / 2, mainDiameter / 2);
             mainCanvas.drawBitmap(teeth, matrix, null);
         }
@@ -248,7 +247,7 @@ public class GearView extends View {
         setInnerDiameter((int) a.getDimension(R.styleable.GearView_innerDiameter, 50));
         setTeethWidth((int) a.getDimension(R.styleable.GearView_teethWidth, 40));
         setTeethHeight((int) a.getDimension(R.styleable.GearView_teethHeight, 40));
-        setTeethCount(a.getInteger(R.styleable.GearView_teethCount, 1));
+        setTeethCount(a.getInteger(R.styleable.GearView_teethCount, 12));
         setRotateOffset(a.getFloat(R.styleable.GearView_rotateAngle, 0));
         enableCuttedCenter(a.getBoolean(R.styleable.GearView_enableCutCenter, false));
         requestLayout();
