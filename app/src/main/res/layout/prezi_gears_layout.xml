@@ -14,8 +14,8 @@
         app:enableCutCenter="true"
         app:innerDiameter="@dimen/three_gear_first_inner_diameter"
         app:mainColor="@color/prezi_main_gear_color"
-        app:mainDiameter="60dp"
+        app:mainDiameter="100dp"
         app:secondDiameter="50dp"
-        app:teethWidth="12dp"/>
+        app:teethWidth="10dp"/>
 
 </RelativeLayout>

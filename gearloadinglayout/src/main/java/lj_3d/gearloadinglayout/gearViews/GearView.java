@@ -14,12 +14,14 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
-import android.view.animation.RotateAnimation;
 
 import lj_3d.gearloadinglayout.R;
+
+import static android.R.attr.angle;
 
 /**
  * Created by LJ on 28.03.2016.
@@ -38,17 +40,19 @@ public class GearView extends View {
     private final PorterDuffXfermode mPorterDuffXfermode = new PorterDuffXfermode(PorterDuff.Mode.CLEAR);
 
     private int cutOffset;
-    private float rotateOffset;
-    private int teethWidth = 40;
+    private int teethWidth;
+    private int teethHeight;
     private int mainDiameter = 400;
     private int secondDiameter = 150;
     private int duration = 3000;
     private int innerDiameter = mainDiameter / 6;
-
     private int mainColor = Color.RED;
-    private int innerColor = Color.WHITE;
 
+    private int innerColor = Color.WHITE;
     private boolean enableCutCenter = true;
+    private int teethCount = 12;
+
+    private float rotateOffset;
 
     private Bitmap mainBitmap;
     private Bitmap teeth;
@@ -88,11 +92,20 @@ public class GearView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+        canvas.rotate(rotateOffset);
         canvas.drawBitmap(mainBitmap, 0, 0, null);
     }
 
     public void setTeethWidth(int width) {
         this.teethWidth = width;
+    }
+
+    public void setTeethHeight(int height) {
+        this.teethHeight = height;
+    }
+
+    public void setTeethCount(int count) {
+        this.teethCount = count;
     }
 
     public void setColor(int color) {
@@ -204,19 +217,21 @@ public class GearView extends View {
         path.moveTo(xZero + cutOffset, yZero);
         path.lineTo(xMax - cutOffset, yZero);
         path.lineTo(xMax, teethWidth);
-        path.lineTo(xMax, mainDiameter - teethWidth);
-        path.lineTo(xMax - cutOffset, mainDiameter);
-        path.lineTo(xZero + cutOffset, mainDiameter);
-        path.lineTo(xZero, mainDiameter - teethWidth);
+
+        path.lineTo(xMax, teethHeight);
+        path.lineTo(xZero, teethHeight);
         path.lineTo(xZero, teethWidth);
+
         path.close();
         canvas.drawPath(path, mainTeethPaint);
     }
 
     private void drawGear() {
+        final float offsetAngle = 360f / teethCount;
         final Canvas mainCanvas = new Canvas(mainBitmap);
         drawTeeth();
-        for (float angle = (0 + rotateOffset); angle <= (150 + rotateOffset); angle = (angle + 30)) {
+
+        for (float angle = 0; angle < 360f; angle = angle + offsetAngle) {
             matrix.setRotate(angle, mainDiameter / 2, mainDiameter / 2);
             mainCanvas.drawBitmap(teeth, matrix, null);
         }
@@ -232,6 +247,8 @@ public class GearView extends View {
         setSecondDiameter((int) a.getDimension(R.styleable.GearView_secondDiameter, 150));
         setInnerDiameter((int) a.getDimension(R.styleable.GearView_innerDiameter, 50));
         setTeethWidth((int) a.getDimension(R.styleable.GearView_teethWidth, 40));
+        setTeethHeight((int) a.getDimension(R.styleable.GearView_teethHeight, 40));
+        setTeethCount((int) a.getDimension(R.styleable.GearView_teethCount, 1));
         setRotateOffset(a.getFloat(R.styleable.GearView_rotateAngle, 0));
         enableCuttedCenter(a.getBoolean(R.styleable.GearView_enableCutCenter, false));
         requestLayout();

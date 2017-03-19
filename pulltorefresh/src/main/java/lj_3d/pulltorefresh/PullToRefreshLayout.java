@@ -28,6 +28,8 @@ import lj_3d.pulltorefresh.callbacks.OnNestedScrollViewScrollListener;
 import lj_3d.pulltorefresh.callbacks.OnPullToRefreshTouchEvent;
 import lj_3d.pulltorefresh.callbacks.RefreshCallback;
 
+import static android.R.attr.fraction;
+
 /**
  * Created by liubomyr on 04.10.16.
  */
@@ -475,8 +477,9 @@ public class PullToRefreshLayout extends FrameLayout {
     }
 
     private void onBackDrag(final ValueAnimator valueAnimator) {
-        final float fraction = valueAnimator.getAnimatedFraction();
-        dragView(1 - fraction, -1f);
+        final float value = (float) valueAnimator.getAnimatedValue();
+        final float fraction = value / mThreshold;
+        dragView(fraction, -1f);
     }
 
     private void onBackTension(final ValueAnimator valueAnimator) {
