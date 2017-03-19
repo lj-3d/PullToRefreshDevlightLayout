@@ -248,7 +248,7 @@ public class GearView extends View {
         setInnerDiameter((int) a.getDimension(R.styleable.GearView_innerDiameter, 50));
         setTeethWidth((int) a.getDimension(R.styleable.GearView_teethWidth, 40));
         setTeethHeight((int) a.getDimension(R.styleable.GearView_teethHeight, 40));
-        setTeethCount((int) a.getDimension(R.styleable.GearView_teethCount, 1));
+        setTeethCount(a.getInteger(R.styleable.GearView_teethCount, 1));
         setRotateOffset(a.getFloat(R.styleable.GearView_rotateAngle, 0));
         enableCuttedCenter(a.getBoolean(R.styleable.GearView_enableCutCenter, false));
         requestLayout();

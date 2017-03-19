@@ -15,6 +15,7 @@
         app:innerDiameter="@dimen/three_gear_first_inner_diameter"
         app:mainColor="@color/prezi_main_gear_color"
         app:mainDiameter="100dp"
+        app:teethCount="4"
         app:secondDiameter="50dp"
         app:teethWidth="10dp"/>
 
