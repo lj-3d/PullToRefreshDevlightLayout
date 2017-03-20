@@ -4,10 +4,10 @@
              android:layout_height="match_parent">
 
     <lj_3d.pulltorefresh.PullToRefreshLayout
-        style="@style/Devlight_pull_to_refresh_layout">
+        style="@style/Devlight_pull_to_refresh_prezi_layout">
 
-        <lj_3d.gearloadinglayout.gearViews.ThreeGearsLayout
-            style="@style/Devlight_gears_layout"/>
+        <lj_3d.pulltorefreshsample.view.GearPreziLayout
+            style="@style/Devlight_gears_prezi_layout"/>
 
         <FrameLayout
             android:layout_width="match_parent"

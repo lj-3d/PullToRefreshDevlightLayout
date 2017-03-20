@@ -3,7 +3,7 @@ package lj_3d.pulltorefresh.callbacks;
 /**
  * Created by LJ on 04.02.2017.
  */
-public interface RefreshCallback {
+public interface OnRefreshCallback {
 
     void onRefresh();
 
@@ -12,8 +12,6 @@ public interface RefreshCallback {
     void onTension(float offset);
 
     void onTensionUp(float offset);
-
-    void onBackDrag(float offset);
 
     void onStartClose();
 

@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="pull_2_refresh_height">120dp</dimen>
+    <dimen name="pull_2_refresh_prezi_height">100dp</dimen>
 </resources>

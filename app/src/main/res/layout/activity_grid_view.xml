@@ -15,8 +15,7 @@
             android:id="@+id/gv_pull_to_refresh"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:numColumns="3"
-            >
+            android:numColumns="3">
 
         </GridView>
     </lj_3d.pulltorefresh.PullToRefreshLayout>

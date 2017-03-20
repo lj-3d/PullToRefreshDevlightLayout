@@ -21,8 +21,6 @@ import android.view.animation.LinearInterpolator;
 
 import lj_3d.gearloadinglayout.R;
 
-import static android.R.attr.angle;
-
 /**
  * Created by LJ on 28.03.2016.
  */
@@ -53,6 +51,8 @@ public class GearView extends View {
     private int teethCount = 12;
 
     private float rotateOffset;
+    private float gearLength;
+    private float rotateCoefficent = 1;
 
     private Bitmap mainBitmap;
     private Bitmap teeth;
@@ -147,6 +147,23 @@ public class GearView extends View {
         rotateAnimation.setDuration(duration);
     }
 
+    public void setRotateCoefficent(float rotateCoefficent) {
+        this.rotateCoefficent = rotateCoefficent;
+    }
+
+    private float calculateRotateCoefficient(final GearView comparableGearView) {
+        final float gearLength = getGearLength();
+        final float comparableGearLength = comparableGearView.getGearLength();
+        rotateCoefficent = gearLength / comparableGearLength;
+        Log.d("calculateRotateCoefficient", gearLength + " " + comparableGearLength + " " + teethWidth);
+        return rotateCoefficent;
+    }
+
+    public float getGearLength() {
+        gearLength = (float) (Math.PI * mainDiameter);
+        return gearLength - teethWidth;
+    }
+
 
     private void initBaseTools() {
         mainTeethPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -176,7 +193,7 @@ public class GearView extends View {
         rotateAnimation.setRepeatCount(Animation.INFINITE);
         rotateAnimation.setInterpolator(new LinearInterpolator());
 
-        rotateAnimation.setFloatValues(0f, 360f);
+        rotateAnimation.setFloatValues(0f, 1f);
         rotateAnimation.setDuration(duration);
         rotateAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
@@ -197,10 +214,11 @@ public class GearView extends View {
         this.rotateOffset = rotateOffset;
     }
 
-    public void rotateByValue(float rotateOffset, boolean reverse) {
+    public void rotateByValue(float rotateFraction, boolean reverse) {
+        float rotateValue = 360f * (rotateFraction * rotateCoefficent);
         if (reverse)
-            rotateOffset = 360f - rotateOffset;
-        ViewCompat.setRotation(this, rotateOffset);
+            rotateValue = 360f - rotateValue;
+        ViewCompat.setRotation(this, rotateValue);
     }
 
 

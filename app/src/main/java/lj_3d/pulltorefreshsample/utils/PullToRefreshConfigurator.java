@@ -2,11 +2,10 @@ package lj_3d.pulltorefreshsample.utils;
 
 import android.os.Handler;
 import android.util.Log;
-import android.view.animation.OvershootInterpolator;
 
 import lj_3d.gearloadinglayout.gearViews.GearLoadingLayout;
 import lj_3d.pulltorefresh.PullToRefreshLayout;
-import lj_3d.pulltorefresh.callbacks.RefreshCallback;
+import lj_3d.pulltorefresh.callbacks.OnRefreshCallback;
 
 /**
  * Created by liubomyr on 08.02.17.
@@ -18,7 +17,7 @@ public class PullToRefreshConfigurator {
         pullToRefreshLayout.setFullBackDuration(500);
         pullToRefreshLayout.setTensionBackDuration(1500);
 //        pullToRefreshLayout.setTensionInterpolator(new OvershootInterpolator());
-        pullToRefreshLayout.setRefreshCallback(new RefreshCallback() {
+        pullToRefreshLayout.setOnRefreshCallback(new OnRefreshCallback() {
             @Override
             public void onRefresh() {
                 gearLoadingLayout.start(true);
@@ -32,7 +31,7 @@ public class PullToRefreshConfigurator {
 
             @Override
             public void onDrag(float offset) {
-                gearLoadingLayout.rotateByValue(360f * offset);
+                gearLoadingLayout.rotateByValue(offset);
             }
 
             @Override
@@ -48,15 +47,8 @@ public class PullToRefreshConfigurator {
                 final float rotateValue = -360f * (offset * 0.07f);
                 gearLoadingLayout.setScaleX(1.1f - scaleValue);
                 gearLoadingLayout.setScaleY(1.1f - scaleValue);
-                gearLoadingLayout.rotateByValue(rotateValue);
+                gearLoadingLayout.rotateByValue(offset);
                 Log.d("rotate_tension", " " + rotateValue);
-            }
-
-            @Override
-            public void onBackDrag(float offset) {
-                final float rotateValue = -360f * offset;
-                gearLoadingLayout.rotateByValue(rotateValue);
-                Log.d("rotate_back", " " + rotateValue);
             }
 
             @Override

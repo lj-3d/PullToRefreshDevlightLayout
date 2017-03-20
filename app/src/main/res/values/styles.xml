@@ -37,9 +37,27 @@
         <item name="android:layout_height">@dimen/pull_2_refresh_height</item>
     </style>
 
+    <style name="Devlight_gears_prezi_layout">
+        <item name="android:id">@id/gear_prezi_layout</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:background">@color/prezi_gears_background</item>
+        <item name="android:layout_height">@dimen/pull_2_refresh_height</item>
+    </style>
+
+    <style name="Devlight_pull_to_refresh_prezi_layout">
+        <item name="android:id">@id/ptr_layout</item>
+        <item name="ptr_drag_mode">parallax</item>
+        <item name="ptr_parallax_coefficient">0.7</item>
+        <item name="ptr_tension">20dp</item>
+        <item name="ptr_threshold">@dimen/pull_2_refresh_prezi_height</item>
+        <item name="ptr_tension_mode">bottom</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
     <style name="Devlight_pull_to_refresh_layout">
         <item name="android:id">@id/ptr_layout</item>
-        <item name="ptr_drag_mode">overlay</item>
+        <item name="ptr_drag_mode">parallax</item>
         <item name="ptr_parallax_coefficient">0.7</item>
         <item name="ptr_tension">100dp</item>
         <item name="ptr_tension_mode">bottom</item>
@@ -48,5 +66,6 @@
     </style>
 
     <item name="gear_layout" type="id">gear_layout</item>
+    <item name="gear_prezi_layout" type="id">gear_prezi_layout</item>
     <item name="ptr_layout" type="id">ptr_layout</item>
 </resources>

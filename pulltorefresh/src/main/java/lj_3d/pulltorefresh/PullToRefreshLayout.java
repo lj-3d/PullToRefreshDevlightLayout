@@ -14,7 +14,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.animation.Interpolator;
-import android.view.animation.LinearInterpolator;
 import android.webkit.WebView;
 import android.widget.AbsListView;
 import android.widget.FrameLayout;
@@ -26,9 +25,7 @@ import lj_3d.pulltorefresh.callbacks.OnChildTouchListener;
 import lj_3d.pulltorefresh.callbacks.OnListViewScrollListener;
 import lj_3d.pulltorefresh.callbacks.OnNestedScrollViewScrollListener;
 import lj_3d.pulltorefresh.callbacks.OnPullToRefreshTouchEvent;
-import lj_3d.pulltorefresh.callbacks.RefreshCallback;
-
-import static android.R.attr.fraction;
+import lj_3d.pulltorefresh.callbacks.OnRefreshCallback;
 
 /**
  * Created by liubomyr on 04.10.16.
@@ -75,7 +72,7 @@ public class PullToRefreshLayout extends FrameLayout {
     private Interpolator mDragInterpolator;
     private Interpolator mTensionInterpolator;
 
-    private RefreshCallback mRefreshCallback;
+    private OnRefreshCallback mOnRefreshCallback;
     private OnChildTouchListener mOnChildTouchListener;
     private OnListViewScrollListener mOnListViewScrollListener;
     private OnPullToRefreshTouchEvent mOnPullToRefreshTouchEvent;
@@ -347,14 +344,14 @@ public class PullToRefreshLayout extends FrameLayout {
             }
         }
 
-        if (mRefreshCallback != null) {
+        if (mOnRefreshCallback != null) {
             final float fullDragFraction = 1 - (mSecondChild.getTranslationY() / mTotalHeight);
-            mRefreshCallback.onDrag(fullDragFraction);
+            mOnRefreshCallback.onDrag(fullDragFraction);
             if (mTension != 0) {
                 if (dragValue < 0f) {
                     final float tensionFraction = Math.abs(dragValue) / mIncreasedTensionYValue;
-                    mRefreshCallback.onTension(tensionFraction);
-                } else mRefreshCallback.onTension(0f);
+                    mOnRefreshCallback.onTension(tensionFraction);
+                } else mOnRefreshCallback.onTension(0f);
             }
         }
     }
@@ -367,15 +364,15 @@ public class PullToRefreshLayout extends FrameLayout {
         mDragUpAnimator.addListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animator) {
-                if (mRefreshCallback != null) {
-                    mRefreshCallback.onStartClose();
+                if (mOnRefreshCallback != null) {
+                    mOnRefreshCallback.onStartClose();
                 }
             }
 
             @Override
             public void onAnimationEnd(Animator animator) {
-                if (mRefreshCallback != null) {
-                    mRefreshCallback.onFinishClose();
+                if (mOnRefreshCallback != null) {
+                    mOnRefreshCallback.onFinishClose();
                 }
                 reset();
             }
@@ -414,8 +411,8 @@ public class PullToRefreshLayout extends FrameLayout {
 
             @Override
             public void onAnimationEnd(Animator animation) {
-                if (mRefreshCallback != null) {
-                    mRefreshCallback.onTensionComplete();
+                if (mOnRefreshCallback != null) {
+                    mOnRefreshCallback.onTensionComplete();
                 }
                 onRefresh();
             }
@@ -488,14 +485,14 @@ public class PullToRefreshLayout extends FrameLayout {
         if (mDragMode == DragMode.DRAG && mTensionMode == TensionMode.TOP && mTension > 0) {
             mFirstChild.setTranslationY(tensionValue - mThreshold);
         }
-        if (mRefreshCallback != null) {
-            mRefreshCallback.onTensionUp(1 - ((tensionValue - mTension) / mTension));
+        if (mOnRefreshCallback != null) {
+            mOnRefreshCallback.onTensionUp(1 - ((tensionValue - mTension) / mTension));
         }
     }
 
     private void onRefresh() {
-        if (mRefreshCallback != null) {
-            mRefreshCallback.onRefresh();
+        if (mOnRefreshCallback != null) {
+            mOnRefreshCallback.onRefresh();
         } else
             finishRefresh();
     }
@@ -656,8 +653,8 @@ public class PullToRefreshLayout extends FrameLayout {
         }
     }
 
-    public void setRefreshCallback(final RefreshCallback refreshCallback) {
-        mRefreshCallback = refreshCallback;
+    public void setOnRefreshCallback(final OnRefreshCallback onRefreshCallback) {
+        mOnRefreshCallback = onRefreshCallback;
     }
 
     public void setOnChildTouchListener(final OnChildTouchListener onChildTouchListener) {
