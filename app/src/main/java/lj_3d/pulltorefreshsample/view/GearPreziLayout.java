@@ -20,7 +20,7 @@ public class GearPreziLayout extends RelativeLayout {
     private GearView mForthGear;
     private GearView mFifthGear;
 
-    private final float mRotateCoeffcient = 0.59f;
+    private final float mRotateCoefficient = 0.59f;
 
     public GearPreziLayout(Context context) {
         this(context, null);
@@ -43,10 +43,10 @@ public class GearPreziLayout extends RelativeLayout {
         mForthGear = (GearView) findViewById(R.id.gear_view_4);
         mFifthGear = (GearView) findViewById(R.id.gear_view_5);
 
-        mSecondGear.setRotateCoefficent(mRotateCoeffcient);
-        mThirdGear.setRotateCoefficent(mRotateCoeffcient);
-        mForthGear.setRotateCoefficent(mRotateCoeffcient);
-        mFifthGear.setRotateCoefficent(mRotateCoeffcient);
+        mSecondGear.setRotateCoefficent(mRotateCoefficient);
+        mThirdGear.setRotateCoefficent(mRotateCoefficient);
+        mForthGear.setRotateCoefficent(mRotateCoefficient);
+        mFifthGear.setRotateCoefficent(mRotateCoefficient);
     }
 
     public void onRotate(final float rotateFraction) {

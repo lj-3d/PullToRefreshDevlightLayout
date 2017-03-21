@@ -52,7 +52,7 @@ public class PullToRefreshLayout extends FrameLayout {
 
     private float mMaxYValue;
     private float mLastYValue;
-    private float mStartYValue;
+    private float mStartYValue = -1;
     private float mRestoreYValue;
     private float mDragCoefficient;
     private float mOverScrollDelta;
@@ -147,6 +147,9 @@ public class PullToRefreshLayout extends FrameLayout {
                                 }
                             case MotionEvent.ACTION_MOVE:
                                 tryToFinishBackAnimators();
+                                if (mStartYValue == -1) {
+                                    onActionDown(yAxis);
+                                }
                                 if (mStartYValue > yAxis || mInnerScrollEnabled) {
                                     mSecondChild.setTranslationY(0f);
                                     mOverScrollDelta = 0f;
@@ -260,6 +263,8 @@ public class PullToRefreshLayout extends FrameLayout {
         if (mOnPullToRefreshTouchEvent != null) {
             mOnPullToRefreshTouchEvent.onTouchEvent(event);
         }
+        final float yAxis = event.getRawY() < mOverScrollDelta ? event.getRawY() + mOverScrollDelta : event.getRawY();
+        final float minValue = Math.min(yAxis, Math.min(yAxis, mMaxYValue));
 
         final int eventAction = event.getAction();
         if (eventAction == MotionEvent.ACTION_POINTER_2_DOWN || eventAction == MotionEvent.ACTION_POINTER_INDEX_MASK) {
@@ -269,8 +274,6 @@ public class PullToRefreshLayout extends FrameLayout {
             return super.onTouchEvent(event);
         }
 
-        final float yAxis = event.getRawY() < mOverScrollDelta ? event.getRawY() + mOverScrollDelta : event.getRawY();
-        final float minValue = Math.min(yAxis, Math.min(yAxis, mMaxYValue));
 
         switch (eventAction) {
             case MotionEvent.ACTION_DOWN:
@@ -299,7 +302,9 @@ public class PullToRefreshLayout extends FrameLayout {
                 break;
             case MotionEvent.ACTION_MOVE:
                 tryToFinishBackAnimators();
-                if (mStartYValue > yAxis) {
+                if (mStartYValue == -1) {
+                    onActionDown(yAxis);
+                } else if (mStartYValue > yAxis) {
                     mSecondChild.setTranslationY(0);
                 } else {
                     calculateOffsetAndDragView(minValue);
@@ -361,6 +366,8 @@ public class PullToRefreshLayout extends FrameLayout {
         mDragUpAnimator.setFloatValues(from, 0f);
         mDragUpAnimator.setDuration(getTag() != null ? mFullBackDuration : mCancelBackDuration);
         mDragUpAnimator.setInterpolator(mDragInterpolator);
+
+        setTag(mDragUpAnimator);
         mDragUpAnimator.addListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animator) {
@@ -511,7 +518,7 @@ public class PullToRefreshLayout extends FrameLayout {
         mIsRefreshing = false;
         mIsChildTouched = false;
         mOverScrollDelta = 0f;
-        mStartYValue = 0f;
+        mStartYValue = -1f;
         mMaxYValue = 0f;
         mLastYValue = 0f;
         mSecondChild.dispatchTouchEvent(MotionEvent.obtain(0, 0, MotionEvent.ACTION_DOWN, 0, mRestoreYValue - mSecondChildTopPosition, 0, 0, 0, 0, 0, 0, 0));
