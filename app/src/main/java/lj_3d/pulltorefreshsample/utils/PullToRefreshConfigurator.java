@@ -62,7 +62,13 @@ public class PullToRefreshConfigurator {
             }
 
             @Override
-            public void onTensionComplete() {
+            public void onTensionUpComplete() {
+
+            }
+
+            @Override
+            public void onTensionUpStart() {
+
             }
         });
 

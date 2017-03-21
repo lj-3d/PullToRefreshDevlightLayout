@@ -1,5 +1,6 @@
 package lj_3d.gearloadinglayout.gearViews;
 
+import android.animation.Animator;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -17,6 +18,7 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
+import android.view.animation.DecelerateInterpolator;
 import android.view.animation.LinearInterpolator;
 
 import lj_3d.gearloadinglayout.R;
@@ -52,7 +54,7 @@ public class GearView extends View {
 
     private float rotateOffset;
     private float gearLength;
-    private float rotateCoefficent = 1;
+    private float rotateCoefficient = 1;
 
     private Bitmap mainBitmap;
     private Bitmap teeth;
@@ -132,9 +134,21 @@ public class GearView extends View {
     }
 
 
-    public void startSpinning(boolean reverse) {
+    public void startSpinning(final boolean reverse) {
         this.reverse = reverse;
 
+        rotateAnimation.setRepeatCount(Animation.INFINITE);
+        rotateAnimation.setInterpolator(new LinearInterpolator());
+
+        rotateAnimation.setFloatValues(0f, 1f);
+        rotateAnimation.setDuration(duration);
+        rotateAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                final float rotateOffset = (float) animation.getAnimatedValue();
+                rotateByValue(rotateOffset, reverse);
+            }
+        });
         rotateAnimation.start();
     }
 
@@ -142,21 +156,27 @@ public class GearView extends View {
         rotateAnimation.cancel();
     }
 
+    public void stopSpinningWithInertia(final Animator.AnimatorListener animatorListener) {
+        rotateAnimation.setRepeatCount(0);
+        rotateAnimation.setInterpolator(new DecelerateInterpolator());
+        rotateAnimation.addListener(animatorListener);
+    }
+
     public void setDuration(int duration) {
         this.duration = duration;
         rotateAnimation.setDuration(duration);
     }
 
-    public void setRotateCoefficent(float rotateCoefficent) {
-        this.rotateCoefficent = rotateCoefficent;
+    public void setRotateCoefficient(float rotateCoefficient) {
+        this.rotateCoefficient = rotateCoefficient;
     }
 
     private float calculateRotateCoefficient(final GearView comparableGearView) {
         final float gearLength = getGearLength();
         final float comparableGearLength = comparableGearView.getGearLength();
-        rotateCoefficent = gearLength / comparableGearLength;
+        rotateCoefficient = gearLength / comparableGearLength;
         Log.d("calculateRotateCoefficient", gearLength + " " + comparableGearLength + " " + teethWidth);
-        return rotateCoefficent;
+        return rotateCoefficient;
     }
 
     public float getGearLength() {
@@ -189,19 +209,6 @@ public class GearView extends View {
         cutCenterPaint.setStyle(Paint.Style.FILL_AND_STROKE);
         cutCenterPaint.setXfermode(mPorterDuffXfermode);
         matrix = new Matrix();
-
-        rotateAnimation.setRepeatCount(Animation.INFINITE);
-        rotateAnimation.setInterpolator(new LinearInterpolator());
-
-        rotateAnimation.setFloatValues(0f, 1f);
-        rotateAnimation.setDuration(duration);
-        rotateAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                final float rotateOffset = (float) animation.getAnimatedValue();
-                rotateByValue(rotateOffset, reverse);
-            }
-        });
     }
 
     private void updateColors() {
@@ -215,7 +222,7 @@ public class GearView extends View {
     }
 
     public void rotateByValue(float rotateFraction, boolean reverse) {
-        float rotateValue = 360f * (rotateFraction * rotateCoefficent);
+        float rotateValue = 360f * (rotateFraction * rotateCoefficient);
         if (reverse)
             rotateValue = 360f - rotateValue;
         ViewCompat.setRotation(this, rotateValue);

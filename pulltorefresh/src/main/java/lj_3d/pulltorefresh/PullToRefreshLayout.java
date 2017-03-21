@@ -147,13 +147,12 @@ public class PullToRefreshLayout extends FrameLayout {
                                 }
                             case MotionEvent.ACTION_MOVE:
                                 tryToFinishBackAnimators();
-                                if (mStartYValue == -1) {
-                                    onActionDown(yAxis);
-                                }
                                 if (mStartYValue > yAxis || mInnerScrollEnabled) {
                                     mSecondChild.setTranslationY(0f);
                                     mOverScrollDelta = 0f;
                                     return false;
+                                } else if (mStartYValue == -1) {
+                                    onActionDown(yAxis);
                                 } else {
                                     if (mOverScrollDelta == 0f) { // need get overscroll offset from scrollable views
                                         mLastYValue = mSecondChild.getTranslationY();
@@ -414,12 +413,15 @@ public class PullToRefreshLayout extends FrameLayout {
         mDragTensionUpAnimator.addListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animation) {
+                if (mOnRefreshCallback != null) {
+                    mOnRefreshCallback.onTensionUpStart();
+                }
             }
 
             @Override
             public void onAnimationEnd(Animator animation) {
                 if (mOnRefreshCallback != null) {
-                    mOnRefreshCallback.onTensionComplete();
+                    mOnRefreshCallback.onTensionUpComplete();
                 }
                 onRefresh();
             }
@@ -488,12 +490,14 @@ public class PullToRefreshLayout extends FrameLayout {
 
     private void onBackTension(final ValueAnimator valueAnimator) {
         final float tensionValue = (float) valueAnimator.getAnimatedValue();
+        final float tensionOffset = tensionValue - mThreshold;
         mSecondChild.setTranslationY(tensionValue);
         if (mDragMode == DragMode.DRAG && mTensionMode == TensionMode.TOP && mTension > 0) {
-            mFirstChild.setTranslationY(tensionValue - mThreshold);
+            mFirstChild.setTranslationY(tensionOffset);
         }
         if (mOnRefreshCallback != null) {
-            mOnRefreshCallback.onTensionUp(1 - ((tensionValue - mTension) / mTension));
+            final float tensionFraction = 1 - (tensionOffset / mTension);
+            mOnRefreshCallback.onTensionUp(tensionFraction);
         }
     }
 

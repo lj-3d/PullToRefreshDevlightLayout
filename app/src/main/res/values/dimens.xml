@@ -2,4 +2,5 @@
 <resources>
     <dimen name="pull_2_refresh_height">120dp</dimen>
     <dimen name="pull_2_refresh_prezi_height">100dp</dimen>
+    <dimen name="pull_2_refresh_prezi_main_gear_shift">-10dp</dimen>
 </resources>

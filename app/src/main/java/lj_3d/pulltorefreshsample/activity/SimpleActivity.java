@@ -1,6 +1,7 @@
 package lj_3d.pulltorefreshsample.activity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.animation.DecelerateInterpolator;
 
 import lj_3d.pulltorefresh.PullToRefreshLayout;
@@ -24,43 +25,8 @@ public class SimpleActivity extends PullToRefreshHeaderActivity {
         final GearPreziLayout gearLoadingLayout = (GearPreziLayout) findViewById(R.id.gear_prezi_layout);
         final PullToRefreshLayout pullToRefreshLayout = (PullToRefreshLayout) findViewById(R.id.ptr_layout);
         pullToRefreshLayout.setTensionInterpolator(new DecelerateInterpolator());
-        pullToRefreshLayout.setTensionBackDuration(200);
-        pullToRefreshLayout.setOnRefreshCallback(new OnRefreshCallback() {
-            @Override
-            public void onRefresh() {
-
-            }
-
-            @Override
-            public void onDrag(float offset) {
-                gearLoadingLayout.onRotate(offset);
-            }
-
-            @Override
-            public void onTension(float offset) {
-
-            }
-
-            @Override
-            public void onTensionUp(float offset) {
-
-            }
-
-            @Override
-            public void onStartClose() {
-
-            }
-
-            @Override
-            public void onFinishClose() {
-
-            }
-
-            @Override
-            public void onTensionComplete() {
-
-            }
-        });
+        pullToRefreshLayout.setTensionBackDuration(600);
+        gearLoadingLayout.setPullToRefreshLayout(pullToRefreshLayout);
     }
 
 }

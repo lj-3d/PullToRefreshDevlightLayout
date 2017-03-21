@@ -17,6 +17,8 @@ public interface OnRefreshCallback {
 
     void onFinishClose();
 
-    void onTensionComplete();
+    void onTensionUpComplete();
+
+    void onTensionUpStart();
 
 }
