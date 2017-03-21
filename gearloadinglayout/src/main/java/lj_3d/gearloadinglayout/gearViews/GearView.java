@@ -61,6 +61,9 @@ public class GearView extends View {
     private Matrix matrix;
 
     private boolean reverse;
+    private boolean stopWithInertia;
+
+    private Animator.AnimatorListener mOnSpinListener;
 
     public GearView(Context context) {
         this(context, null);
@@ -149,6 +152,30 @@ public class GearView extends View {
                 rotateByValue(rotateOffset, reverse);
             }
         });
+        rotateAnimation.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+                if (stopWithInertia) {
+                    rotateAnimation.setInterpolator(new DecelerateInterpolator());
+                    rotateAnimation.setRepeatCount(0);
+                }
+            }
+        });
         rotateAnimation.start();
     }
 
@@ -156,10 +183,17 @@ public class GearView extends View {
         rotateAnimation.cancel();
     }
 
-    public void stopSpinningWithInertia(final Animator.AnimatorListener animatorListener) {
-        rotateAnimation.setRepeatCount(0);
+    public void stopSpinningWithInertia() {
+        stopSpinningWithInertia(0);
+    }
+
+    public void stopSpinningWithInertia(final int inertiaDuration) {
+        final float value = (float) rotateAnimation.getAnimatedValue();
+        rotateAnimation.setFloatValues(value, value + 1f);
         rotateAnimation.setInterpolator(new DecelerateInterpolator());
-        rotateAnimation.addListener(animatorListener);
+        rotateAnimation.setRepeatCount(0);
+        if (inertiaDuration != 0)
+            rotateAnimation.setDuration(inertiaDuration);
     }
 
     public void setDuration(int duration) {
@@ -169,6 +203,11 @@ public class GearView extends View {
 
     public void setRotateCoefficient(float rotateCoefficient) {
         this.rotateCoefficient = rotateCoefficient;
+    }
+
+    public void setOnSpinAnimationListener(final Animator.AnimatorListener onSpinListener) {
+        mOnSpinListener = onSpinListener;
+        rotateAnimation.addListener(mOnSpinListener);
     }
 
     private float calculateRotateCoefficient(final GearView comparableGearView) {

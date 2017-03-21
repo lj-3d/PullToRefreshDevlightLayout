@@ -31,7 +31,7 @@ public class GearPreziLayout extends RelativeLayout {
     private PullToRefreshLayout mPullToRefreshLayout;
     private final float ROTATE_COEFFICIENT = 0.59f;
     private final int FIRST_GEAR_SHIFT = getResources().getDimensionPixelSize(R.dimen.pull_2_refresh_prezi_main_gear_shift);
-    private final int FIRST_GEAR_SPIN_DURATION = 1400;
+    private final int FIRST_GEAR_SPIN_DURATION = 3400;
     private float mTensionValue = -1f;
 
     public GearPreziLayout(Context context) {
@@ -164,10 +164,8 @@ public class GearPreziLayout extends RelativeLayout {
                 GearPreziLayout.this.onTensionUpStart();
             }
         });
-    }
 
-    private void completeClose() {
-        mFirstGear.stopSpinningWithInertia(new Animator.AnimatorListener() {
+        mFirstGear.setOnSpinAnimationListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animation) {
 
@@ -195,5 +193,9 @@ public class GearPreziLayout extends RelativeLayout {
 
             }
         });
+    }
+
+    private void completeClose() {
+        mFirstGear.stopSpinningWithInertia(300);
     }
 }
