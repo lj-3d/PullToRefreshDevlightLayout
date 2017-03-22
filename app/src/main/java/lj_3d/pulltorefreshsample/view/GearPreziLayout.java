@@ -13,7 +13,6 @@ import android.widget.RelativeLayout;
 import lj_3d.gearloadinglayout.gearViews.GearView;
 import lj_3d.pulltorefresh.PullToRefreshLayout;
 import lj_3d.pulltorefresh.callbacks.OnRefreshCallback;
-import lj_3d.pulltorefreshsample.activity.PullToRefreshActivity;
 import lj_3d.pulltorefreshsample.activity.R;
 
 /**
@@ -31,7 +30,7 @@ public class GearPreziLayout extends RelativeLayout {
     private PullToRefreshLayout mPullToRefreshLayout;
     private final float ROTATE_COEFFICIENT = 0.59f;
     private final int FIRST_GEAR_SHIFT = getResources().getDimensionPixelSize(R.dimen.pull_2_refresh_prezi_main_gear_shift);
-    private final int FIRST_GEAR_SPIN_DURATION = 3000;
+    private final int FIRST_GEAR_SPIN_DURATION = 1000;
     private float mTensionValue = -1f;
 
     public GearPreziLayout(Context context) {
@@ -44,7 +43,7 @@ public class GearPreziLayout extends RelativeLayout {
 
     public GearPreziLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        LayoutInflater.from(getContext()).inflate(R.layout.prezi_gears_layout, this);
+        LayoutInflater.from(getContext()).inflate(R.layout.layout_prezi_gears, this);
         initChildren();
     }
 

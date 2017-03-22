@@ -3,4 +3,18 @@
     <dimen name="pull_2_refresh_height">120dp</dimen>
     <dimen name="pull_2_refresh_prezi_height">100dp</dimen>
     <dimen name="pull_2_refresh_prezi_main_gear_shift">-10dp</dimen>
+
+    <dimen name="first_gear_main_diameter">70dp</dimen>
+    <dimen name="first_gear_inner_diameter">57dp</dimen>
+    <dimen name="second_gear_main_diameter">110dp</dimen>
+    <dimen name="second_gear_inner_diameter">90dp</dimen>
+    <dimen name="third_gear_main_diameter">130dp</dimen>
+    <dimen name="third_gear_inner_diameter">105dp</dimen>
+    <dimen name="forth_gear_main_diameter">145dp</dimen>
+    <dimen name="forth_gear_inner_diameter">120dp</dimen>
+
+    <dimen name="first_gear_teeth_width">13dp</dimen>
+    <dimen name="second_gear_teeth_width">9dp</dimen>
+    <dimen name="third_gear_teeth_width">10dp</dimen>
+    <dimen name="forth_gear_teeth_width">12dp</dimen>
 </resources>

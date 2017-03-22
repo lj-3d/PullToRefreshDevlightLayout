@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/pull_2_refresh_height">
+
+    <lj_3d.gearloadinglayout.gearViews.GearView
+        android:id="@+id/gear_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        app:enableCutCenter="true"
+        app:innerDiameter="@dimen/three_gear_first_inner_diameter"
+        app:mainColor="@color/prezi_main_gear_color"
+        app:mainDiameter="@dimen/first_gear_main_diameter"
+        app:secondDiameter="@dimen/first_gear_inner_diameter"
+        app:teethCount="10"
+        app:teethWidth="@dimen/first_gear_teeth_width"/>
+
+    <lj_3d.gearloadinglayout.gearViews.GearView
+        android:id="@+id/gear_view_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/gear_view"
+        android:layout_alignRight="@+id/gear_view"
+        android:layout_below="@+id/gear_view"
+        android:layout_marginEnd="43dp"
+        android:layout_marginRight="43dp"
+        android:layout_marginTop="-32dp"
+        app:innerColor="@color/prezi_others_gears_color_1"
+        app:innerDiameter="@dimen/three_gear_first_inner_diameter"
+        app:mainColor="@color/prezi_others_gears_color_1"
+        app:mainDiameter="@dimen/second_gear_main_diameter"
+        app:secondDiameter="@dimen/second_gear_inner_diameter"
+        app:teethCount="17"
+        app:teethWidth="@dimen/second_gear_teeth_width"/>
+
+    <lj_3d.gearloadinglayout.gearViews.GearView
+        android:id="@+id/gear_view_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="-39dp"
+        android:layout_marginRight="-39dp"
+        android:layout_marginTop="-26dp"
+        android:layout_toLeftOf="@+id/gear_view_2"
+        android:layout_toStartOf="@+id/gear_view_2"
+        app:innerColor="@color/prezi_others_gears_color_1"
+        app:innerDiameter="@dimen/three_gear_first_inner_diameter"
+        app:mainColor="@color/prezi_others_gears_color_1"
+        app:mainDiameter="@dimen/third_gear_main_diameter"
+        app:rotateAngle="-8"
+        app:secondDiameter="@dimen/third_gear_inner_diameter"
+        app:teethCount="17"
+        app:teethWidth="@dimen/third_gear_teeth_width"/>
+
+    <lj_3d.gearloadinglayout.gearViews.GearView
+        android:id="@+id/gear_view_4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/gear_view"
+        android:layout_marginBottom="-28dp"
+        android:layout_marginLeft="-38dp"
+        android:layout_marginStart="-38dp"
+        android:layout_toEndOf="@+id/gear_view"
+        android:layout_toRightOf="@+id/gear_view"
+        app:innerColor="@color/prezi_others_gears_color_2"
+        app:innerDiameter="@dimen/three_gear_first_inner_diameter"
+        app:mainColor="@color/prezi_others_gears_color_2"
+        app:mainDiameter="@dimen/third_gear_main_diameter"
+        app:rotateAngle="2"
+        app:secondDiameter="@dimen/third_gear_inner_diameter"
+        app:teethCount="17"
+        app:teethWidth="@dimen/third_gear_teeth_width"/>
+
+    <lj_3d.gearloadinglayout.gearViews.GearView
+        android:id="@+id/gear_view_5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="-42dp"
+        android:layout_marginStart="-42dp"
+        android:layout_toEndOf="@+id/gear_view_4"
+        android:layout_toRightOf="@+id/gear_view_4"
+        app:innerColor="@color/prezi_others_gears_color_1"
+        app:innerDiameter="@dimen/three_gear_first_inner_diameter"
+        app:mainColor="@color/prezi_others_gears_color_1"
+        app:mainDiameter="@dimen/forth_gear_main_diameter"
+        app:rotateAngle="8"
+        app:secondDiameter="@dimen/forth_gear_inner_diameter"
+        app:teethCount="17"
+        app:teethWidth="@dimen/forth_gear_teeth_width"/>
+
+</RelativeLayout>
