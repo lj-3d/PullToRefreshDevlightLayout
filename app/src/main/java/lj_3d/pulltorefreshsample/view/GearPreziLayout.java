@@ -31,7 +31,7 @@ public class GearPreziLayout extends RelativeLayout {
     private PullToRefreshLayout mPullToRefreshLayout;
     private final float ROTATE_COEFFICIENT = 0.59f;
     private final int FIRST_GEAR_SHIFT = getResources().getDimensionPixelSize(R.dimen.pull_2_refresh_prezi_main_gear_shift);
-    private final int FIRST_GEAR_SPIN_DURATION = 3400;
+    private final int FIRST_GEAR_SPIN_DURATION = 3000;
     private float mTensionValue = -1f;
 
     public GearPreziLayout(Context context) {
@@ -126,7 +126,7 @@ public class GearPreziLayout extends RelativeLayout {
 
             @Override
             public void onDrag(float offset) {
-                GearPreziLayout.this.onRotate(offset);
+                GearPreziLayout.this.onRotate(offset * 0.3f);
             }
 
             @Override
@@ -196,6 +196,6 @@ public class GearPreziLayout extends RelativeLayout {
     }
 
     private void completeClose() {
-        mFirstGear.stopSpinningWithInertia(300);
+        mFirstGear.stopSpinningWithInertia();
     }
 }

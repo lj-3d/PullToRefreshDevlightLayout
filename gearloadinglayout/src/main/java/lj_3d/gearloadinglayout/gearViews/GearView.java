@@ -20,6 +20,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.LinearInterpolator;
+import android.view.animation.OvershootInterpolator;
 
 import lj_3d.gearloadinglayout.R;
 
@@ -45,24 +46,25 @@ public class GearView extends View {
     private int mainDiameter = 400;
     private int secondDiameter = 150;
     private int duration = 3000;
+    private int inertiaDuration;
     private int innerDiameter = mainDiameter / 6;
-    private int mainColor = Color.RED;
 
+    private int mainColor = Color.RED;
     private int innerColor = Color.WHITE;
     private boolean enableCutCenter = true;
-    private int teethCount = 12;
 
+    private int teethCount = 12;
     private float rotateOffset;
     private float gearLength;
-    private float rotateCoefficient = 1;
 
+    private float rotateCoefficient = 1;
     private Bitmap mainBitmap;
     private Bitmap teeth;
+
     private Matrix matrix;
-
     private boolean reverse;
-    private boolean stopWithInertia;
 
+    private boolean stopWithInertia;
     private Animator.AnimatorListener mOnSpinListener;
 
     public GearView(Context context) {
@@ -160,7 +162,6 @@ public class GearView extends View {
 
             @Override
             public void onAnimationEnd(Animator animation) {
-
             }
 
             @Override
@@ -171,8 +172,12 @@ public class GearView extends View {
             @Override
             public void onAnimationRepeat(Animator animation) {
                 if (stopWithInertia) {
+                    stopWithInertia = false;
+                    rotateAnimation.setDuration((long) (duration * 0.2f));
                     rotateAnimation.setInterpolator(new DecelerateInterpolator());
+                    rotateAnimation.setFloatValues(0f, 0.1f);
                     rotateAnimation.setRepeatCount(0);
+                    rotateAnimation.start();
                 }
             }
         });
@@ -184,16 +189,7 @@ public class GearView extends View {
     }
 
     public void stopSpinningWithInertia() {
-        stopSpinningWithInertia(0);
-    }
-
-    public void stopSpinningWithInertia(final int inertiaDuration) {
-        final float value = (float) rotateAnimation.getAnimatedValue();
-        rotateAnimation.setFloatValues(value, value + 1f);
-        rotateAnimation.setInterpolator(new DecelerateInterpolator());
-        rotateAnimation.setRepeatCount(0);
-        if (inertiaDuration != 0)
-            rotateAnimation.setDuration(inertiaDuration);
+        stopWithInertia = true;
     }
 
     public void setDuration(int duration) {
