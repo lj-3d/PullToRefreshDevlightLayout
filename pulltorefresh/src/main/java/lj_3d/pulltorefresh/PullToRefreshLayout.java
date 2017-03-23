@@ -137,7 +137,9 @@ public class PullToRefreshLayout extends FrameLayout {
                                 onActionDown(yAxis);
                                 return false;
                             case MotionEvent.ACTION_UP:
-                                if (mStartYValue > yAxis || mInnerScrollEnabled) {
+                                if (isStartValueReseted()) {
+                                    onActionDown(yAxis);
+                                } else if (mStartYValue > yAxis || mInnerScrollEnabled) {
                                     mSecondChild.setTranslationY(0f);
                                     mOverScrollDelta = 0f;
                                     mLastYValue = 0f;
@@ -151,7 +153,7 @@ public class PullToRefreshLayout extends FrameLayout {
                                     mSecondChild.setTranslationY(0f);
                                     mOverScrollDelta = 0f;
                                     return false;
-                                } else if (mStartYValue == -1) {
+                                } else if (isStartValueReseted()) {
                                     onActionDown(yAxis);
                                 } else {
                                     if (mOverScrollDelta == 0f) { // need get overscroll offset from scrollable views
@@ -273,6 +275,8 @@ public class PullToRefreshLayout extends FrameLayout {
             return super.onTouchEvent(event);
         }
 
+        Log.d("onTouchEvent", "eventAction :" + eventAction);
+
 
         switch (eventAction) {
             case MotionEvent.ACTION_DOWN:
@@ -280,7 +284,9 @@ public class PullToRefreshLayout extends FrameLayout {
                 onActionDown(yAxis);
                 break;
             case MotionEvent.ACTION_UP:
-                if (minValue >= mMaxYValue) {
+                if (isStartValueReseted()) {
+                    onActionDown(yAxis);
+                } else if (minValue >= mMaxYValue) {
                     mIsRefreshing = true;
                     if (mTension == 0)
                         onRefresh();
@@ -301,7 +307,7 @@ public class PullToRefreshLayout extends FrameLayout {
                 break;
             case MotionEvent.ACTION_MOVE:
                 tryToFinishBackAnimators();
-                if (mStartYValue == -1) {
+                if (isStartValueReseted()) {
                     onActionDown(yAxis);
                 } else if (mStartYValue > yAxis) {
                     mSecondChild.setTranslationY(0);
@@ -528,6 +534,7 @@ public class PullToRefreshLayout extends FrameLayout {
         mSecondChild.dispatchTouchEvent(MotionEvent.obtain(0, 0, MotionEvent.ACTION_DOWN, 0, mRestoreYValue - mSecondChildTopPosition, 0, 0, 0, 0, 0, 0, 0));
         mRestoreYValue = 0f;
         setTag(null);
+        Log.d("onTouchEvent", "reset");
     }
 
     public void setThreshold(final int threshold) {
@@ -662,6 +669,10 @@ public class PullToRefreshLayout extends FrameLayout {
                 mDragTensionUpAnimator.cancel();
             }
         }
+    }
+
+    private boolean isStartValueReseted() {
+        return mStartYValue == -1;
     }
 
     public void setOnRefreshCallback(final OnRefreshCallback onRefreshCallback) {
