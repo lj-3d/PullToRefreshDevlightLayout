@@ -131,15 +131,19 @@ public class PullToRefreshLayout extends FrameLayout {
                             }
                             return true; // control for blocking content
                         }
+                        if (isStartValueReseted())
+                            onActionDown(yAxis);
+
                         switch (eventAction) {
-                            case MotionEvent.ACTION_DOWN:
-                                tryToFinishBackAnimators();
-                                onActionDown(yAxis);
-                                return false;
+//                            case MotionEvent.ACTION_DOWN:
+//                                tryToFinishBackAnimators();
+//                                onActionDown(yAxis);
+//                                return false;
                             case MotionEvent.ACTION_UP:
-                                if (isStartValueReseted()) {
-                                    onActionDown(yAxis);
-                                } else if (mStartYValue > yAxis || mInnerScrollEnabled) {
+//                                if (isStartValueReseted()) {
+//                                    onActionDown(yAxis);
+//                                } else
+                                    if (mStartYValue > yAxis || mInnerScrollEnabled) {
                                     mSecondChild.setTranslationY(0f);
                                     mOverScrollDelta = 0f;
                                     mLastYValue = 0f;
@@ -153,9 +157,11 @@ public class PullToRefreshLayout extends FrameLayout {
                                     mSecondChild.setTranslationY(0f);
                                     mOverScrollDelta = 0f;
                                     return false;
-                                } else if (isStartValueReseted()) {
-                                    onActionDown(yAxis);
-                                } else {
+                                }
+//                                else if (isStartValueReseted()) {
+//                                    onActionDown(yAxis);
+//                                }
+                                else {
                                     if (mOverScrollDelta == 0f) { // need get overscroll offset from scrollable views
                                         mLastYValue = mSecondChild.getTranslationY();
                                         mStartYValue = mOverScrollDelta = yAxis - mLastYValue;
@@ -284,9 +290,10 @@ public class PullToRefreshLayout extends FrameLayout {
                 onActionDown(yAxis);
                 break;
             case MotionEvent.ACTION_UP:
-                if (isStartValueReseted()) {
-                    onActionDown(yAxis);
-                } else if (minValue >= mMaxYValue) {
+//                if (isStartValueReseted()) {
+//                    onActionDown(yAxis);
+//                } else
+                    if (minValue >= mMaxYValue) {
                     mIsRefreshing = true;
                     if (mTension == 0)
                         onRefresh();
@@ -307,9 +314,10 @@ public class PullToRefreshLayout extends FrameLayout {
                 break;
             case MotionEvent.ACTION_MOVE:
                 tryToFinishBackAnimators();
-                if (isStartValueReseted()) {
-                    onActionDown(yAxis);
-                } else if (mStartYValue > yAxis) {
+//                if (isStartValueReseted()) {
+//                    onActionDown(yAxis);
+//                } else
+                    if (mStartYValue > yAxis) {
                     mSecondChild.setTranslationY(0);
                 } else {
                     calculateOffsetAndDragView(minValue);

@@ -49,6 +49,8 @@
         <item name="ptr_drag_mode">parallax</item>
         <item name="ptr_parallax_coefficient">0.7</item>
         <item name="ptr_tension">20dp</item>
+        <item name="ptr_drag_coefficient">2</item>
+        <item name="ptr_tension_coefficient">3</item>
         <item name="ptr_threshold">@dimen/pull_2_refresh_prezi_height</item>
         <item name="ptr_tension_mode">bottom</item>
         <item name="android:layout_width">match_parent</item>
